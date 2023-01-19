@@ -1,10 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import { addTodo } from "../modules/todo";
 
-const InputBox = ({ setTodos }) => {
+const InputBox = () => {
+  //컴퍼넌트 내부에서 사용할 스테이트값 지정
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
+  const dispatch = useDispatch();
+
+  //스토어값인 투두에 접근하는 훅
+  // const todos = useSelector((state) => state.todo);
+
+  //타이틀 체인지 함수
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -13,19 +23,17 @@ const InputBox = ({ setTodos }) => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const newTodos = {
+    const newTodo = {
+      id: uuidv4(), // id는 모두 고유값이어야 합니다.
       title,
       text,
-      id: Date.now(),
       isDone: false,
     };
 
-    setTodos((prev) => {
-      return [...prev, newTodos];
-    });
+    dispatch(addTodo(newTodo));
 
     setTitle("");
     setText("");
@@ -46,7 +54,7 @@ const InputBox = ({ setTodos }) => {
 export default InputBox;
 
 const StForm = styled.div`
-  background-color: tomato;
+  background-color: rgb(255, 99, 71);
   justify-content: center;
   align-items: center;
   display: flex;

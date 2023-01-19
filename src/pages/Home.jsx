@@ -1,7 +1,14 @@
 import React from "react";
+import TodoList from "../redux/components/TodoList";
+import InputBox from "../redux/components/InputBox";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <InputBox></InputBox>
+      <TodoList></TodoList>
+    </>
+  );
 };
 
 export default Home;

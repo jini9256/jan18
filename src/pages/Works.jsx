@@ -1,7 +1,10 @@
+// src/pages/Work.js
+
 import React from "react";
+import { useParams } from "react-router-dom";
 
-const Works = () => {
-  return <div>Works</div>;
-};
+function Work() {
+  return <div>hi</div>;
+}
 
-export default Works;
+export default Work;
