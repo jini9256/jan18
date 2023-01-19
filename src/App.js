@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux"; // import 해주세요.
+import { addTodo } from "./redux/modules/todo";
+
+const App = () => {
+  const [title, setTitle] = useState("");
+  const todo = useSelector((state) => state.todo.todo);
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (title === "") {
+      return;
+    } else {
+      dispatch(
+        addTodo({
+          id: todo.length + 1,
+          title,
+        })
+      );
+      setTitle("");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <label>할일을 입력하세요</label>
+          <input value={title} onChange={handleChange}></input>
+          <button>click</button>
+        </form>
+      </div>
+      <div>
+        {todo.map((item) => {
+          return <div>{item.title}</div>;
+        })}
+      </div>
+    </>
   );
-}
+};
 
 export default App;
