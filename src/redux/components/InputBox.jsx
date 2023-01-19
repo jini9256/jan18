@@ -12,7 +12,7 @@ const InputBox = () => {
   const dispatch = useDispatch();
 
   //스토어값인 투두에 접근하는 훅
-  // const todos = useSelector((state) => state.todo);
+  const todos = useSelector((state) => state.todo);
 
   //타이틀 체인지 함수
   const titleChange = (e) => {
